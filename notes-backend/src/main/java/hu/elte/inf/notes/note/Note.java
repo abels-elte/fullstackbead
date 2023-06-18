@@ -1,6 +1,7 @@
 package hu.elte.inf.notes.note;
 
 import hu.elte.inf.notes.auth.User;
+import hu.elte.inf.notes.folder.Folder;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -33,4 +34,7 @@ public class Note {
     private String content;
     private String backgroundColor;
     private String foregroundColor;
+
+    @DBRef
+    private Folder parent;
 }

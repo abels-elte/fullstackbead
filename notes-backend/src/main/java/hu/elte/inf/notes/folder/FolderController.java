@@ -1,8 +1,5 @@
-package hu.elte.inf.folders.folder;
+package hu.elte.inf.notes.folder;
 
-
-import hu.elte.inf.notes.folder.Folder;
-import hu.elte.inf.notes.folder.FolderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,28 +8,34 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@RequestMapping("folders")
 public class FolderController {
     @Autowired
-    private FolderRepository repository;
+    private FolderService folderService;
 
-    @GetMapping("/folders")
+    @GetMapping("")
     public List<Folder> getAllFolders() {
-        return repository.findAll();
+        return folderService.getAllFolders();
     }
 
-    @GetMapping("/folders/{id}")
+    @GetMapping("{id}")
     public Optional<Folder> getNoteById(@PathVariable("id") String id) {
-        return repository.findById(id);
+        return folderService.getFolderById(id);
     }
 
-    @PostMapping("/folders")
-    public Folder create() {
-        return repository.save(new Folder());
+    @PostMapping("")
+    public Folder create(@RequestBody Folder folder) {
+        return folderService.create(folder);
     }
 
-    @PostMapping("/folders/{id}")
+    @PostMapping("{id}")
     public ResponseEntity<Folder> updateById(@PathVariable("id") String id, @RequestBody Folder newNote) {
         if (id.equals(newNote.getId())) return ResponseEntity.badRequest().body(null);
-        return ResponseEntity.ok(repository.save(newNote));
+        return folderService.updateFolder(id, newNote).map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.badRequest().body(null));
+    }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<Folder> deleteFolder(@PathVariable("id") String id) {
+        return folderService.deleteFolder(id).map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.badRequest().body(null));
     }
 }
