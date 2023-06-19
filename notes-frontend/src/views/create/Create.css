@@ -1,0 +1,14 @@
+.create-container { 
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: auto;
+}
+
+.create-container input {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.create-container button {
+    margin-left: 0.5rem;
+}

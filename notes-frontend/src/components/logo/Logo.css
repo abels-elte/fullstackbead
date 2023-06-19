@@ -1,0 +1,22 @@
+.logo {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-weight: 800;
+    font-size: 5rem;
+    text-transform: uppercase;
+    padding: 0.5rem;
+    border-width: 0px;
+    border-radius: 1rem;
+    color: black;
+    user-select: none;
+}
+
+
+.logo i {
+    color: #38a537;
+}
+
+@media (prefers-color-scheme: dark) {
+    .logo {
+        color: white;
+    }
+}
