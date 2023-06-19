@@ -21,8 +21,7 @@ public class Note {
     @Id
     private String id;
 
-    @DBRef
-    private User owner;
+    private String ownerId;
 
     @CreatedDate
     private LocalDateTime createdOn;
@@ -32,9 +31,6 @@ public class Note {
 
     private String title;
     private String content;
-    private String backgroundColor;
-    private String foregroundColor;
 
-    @DBRef
-    private Folder parent;
+    private String parentId;
 }

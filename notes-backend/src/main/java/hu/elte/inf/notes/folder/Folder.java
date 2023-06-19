@@ -20,9 +20,8 @@ public class Folder {
     @Id
     private String id;
 
-    @DBRef
     @Indexed
-    private User owner;
+    private String ownerId;
 
     @Indexed
     private boolean isDefault;

@@ -12,14 +12,14 @@ import java.util.Optional;
 @Repository
 public interface NoteRepository extends MongoRepository<Note, String> {
 
-    @Query("{owner:  '?0'}")
+    @Query("{ownerId:  '?0'}")
     List<Note> getAllByOwnerId(String ownerId);
 
 
-    @Query("{owner:  '?1', _id:  '?0'}")
+    @Query("{ownerId:  '?1', _id:  '?0'}")
     Optional<Note> getNoteById(String id, String ownerId);
 
 
-    @DeleteQuery("{owner:  '?1', _id:  '?0'}")
+    @DeleteQuery("{ownerId: '?1', _id:  '?0'}")
     Optional<Note> deleteById(String id, String ownerId);
 }

@@ -1,5 +1,6 @@
 package hu.elte.inf.notes.folder;
 
+import hu.elte.inf.notes.note.Note;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -38,4 +39,10 @@ public class FolderController {
     public ResponseEntity<Folder> deleteFolder(@PathVariable("id") String id) {
         return folderService.deleteFolder(id).map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.badRequest().body(null));
     }
+
+    @PostMapping("/move-to/{id}")
+    public ResponseEntity<Note> moveToFolder(@PathVariable("id") String id, @RequestBody Note note) {
+        return folderService.moveTo(id, note.getId()).map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.badRequest().body(null));
+    }
+
 }

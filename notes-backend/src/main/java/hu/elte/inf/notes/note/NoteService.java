@@ -35,30 +35,30 @@ public class NoteService {
     @Transactional
     public Note createNote(Note note) {
         var userId = authProvider.currentUser().id();
-        var folder = folderRepository.getFolderById(note.getParent().getId(), userId);
+        var folder = folderRepository.getFolderById(note.getParentId(), userId);
+        var defaultFolder = folderRepository.getDefaultFolderByOwner(userId);
 
         note.setId(null);
-        note.setOwner(new User(userId, null, null, null));
+        note.setOwnerId(userId);
 
-        folder.ifPresentOrElse(note::setParent, () ->
-                folderRepository.getDefaultFolderByOwner(userId).ifPresent(defaultFolder -> {
-                    note.setParent(defaultFolder);
-                    defaultFolder.addNote(note);
-                    folderRepository.save(defaultFolder);
-                })
-        );
+        var f = folder.orElseGet(defaultFolder::get);
 
-        return noteRepository.save(note);
+        note.setParentId(f.getId());
+
+        var savedNote = noteRepository.save(note);
+
+        f.addNote(savedNote);
+        folderRepository.save(f);
+
+        return savedNote;
+
     }
 
-    // TODO Handle moving notes between folders
     public Optional<Note> updateNote(String id, Note note) {
         return noteRepository.getNoteById(id, authProvider.currentUser().id()).map(oldNote -> {
 
             oldNote.setTitle(note.getTitle());
             oldNote.setContent(note.getContent());
-            oldNote.setBackgroundColor(note.getBackgroundColor());
-            oldNote.setForegroundColor(note.getForegroundColor());
 
             return noteRepository.save(oldNote);
         });
@@ -66,10 +66,11 @@ public class NoteService {
 
     @Transactional
     public Optional<Note> deleteNote(String id) {
-        var deleted = noteRepository.deleteById(id, authProvider.currentUser().id());
+        var userId = authProvider.currentUser().id();
+        var deleted = noteRepository.deleteById(id, userId);
 
         deleted.ifPresent(note -> {
-            var parent = note.getParent();
+            var parent = folderRepository.getFolderById(note.getParentId(), userId).get();
             parent.removeNote(note);
             folderRepository.save(parent);
         });

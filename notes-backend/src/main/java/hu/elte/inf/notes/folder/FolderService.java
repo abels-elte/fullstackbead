@@ -2,6 +2,7 @@ package hu.elte.inf.notes.folder;
 
 import hu.elte.inf.notes.auth.AuthProvider;
 import hu.elte.inf.notes.auth.User;
+import hu.elte.inf.notes.note.Note;
 import hu.elte.inf.notes.note.NoteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,7 +28,7 @@ public class FolderService {
         return folderRepository
                 .getDefaultFolderByOwner(user.id)
                 .orElseGet(() ->
-                        folderRepository.save(new Folder(null, user, true, "", List.of()))
+                        folderRepository.save(new Folder(null, user.id, true, "", List.of()))
                 );
     }
 
@@ -43,7 +44,7 @@ public class FolderService {
         folder.setId(null);
         folder.setDefault(false);
         folder.setNotes(Collections.emptyList());
-        folder.setOwner(new User(authProvider.currentUser().id(), null, null, null));
+        folder.setOwnerId(authProvider.currentUser().id());
 
         return folderRepository.save(folder);
     }
@@ -66,4 +67,28 @@ public class FolderService {
         return deleted;
     }
 
+    @Transactional
+    public Optional<Note> moveTo(String targetId, String noteId) {
+        var userId = authProvider.currentUser().id();
+
+        var optionalTargetFolder = folderRepository.getFolderById(targetId, userId);
+        var optionalNote = noteRepository.getNoteById(noteId, userId);
+        var optionalSource = folderRepository.getFolderById(optionalNote.map(Note::getParentId).orElse(""), userId);
+
+        if (optionalNote.isEmpty() || optionalTargetFolder.isEmpty() || optionalSource.isEmpty())
+            return Optional.empty();
+
+        var note = optionalNote.get();
+        var targetFolder = optionalTargetFolder.get();
+        var sourceFolder = optionalSource.get();
+
+        sourceFolder.removeNote(note);
+        targetFolder.addNote(note);
+        note.setParentId(targetFolder.getId());
+
+        folderRepository.saveAll(List.of(sourceFolder, targetFolder));
+        noteRepository.save(note);
+
+        return Optional.of(note);
+    }
 }
