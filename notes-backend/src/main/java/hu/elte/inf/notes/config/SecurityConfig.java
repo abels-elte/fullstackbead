@@ -40,7 +40,7 @@ import java.util.List;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-
+    // This config is based on the following article: https://www.toptal.com/spring/spring-security-tutorial
 
     @Value("${jwt.public.key}")
     private RSAPublicKey rsaPublicKey;
