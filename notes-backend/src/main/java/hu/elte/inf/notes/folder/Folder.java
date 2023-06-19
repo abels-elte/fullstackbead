@@ -1,6 +1,5 @@
 package hu.elte.inf.notes.folder;
 
-import hu.elte.inf.notes.auth.User;
 import hu.elte.inf.notes.note.Note;
 import lombok.*;
 import org.springframework.data.annotation.Id;
