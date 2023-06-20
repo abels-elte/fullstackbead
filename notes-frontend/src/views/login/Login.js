@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import './Login.css';
@@ -9,6 +9,13 @@ import { Logo } from '../../components/logo/Logo';
 
 export function Login() {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (localStorage.getItem("notes-auth")) {
+      console.log("user already logged in");
+      navigate("/notes");
+    }
+  });
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');

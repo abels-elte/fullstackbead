@@ -1,6 +1,6 @@
 .notes {
     display: grid;
-    grid-template-columns: 20vw auto;
+    grid-template-columns: min(30vw, 360px) auto;
 }
 
 .sidebar {

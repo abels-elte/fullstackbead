@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Create.css';
 
 import { Button } from '../../components/button/Button.js';
@@ -8,6 +8,13 @@ import { useNavigate } from 'react-router-dom';
 
 export function Create() {
     const navigate = useNavigate();
+
+    useEffect(() => {
+        if (localStorage.getItem("notes-auth")) {
+          console.log("user already logged in");
+          navigate("/notes");
+        }
+      });
 
     const [showPassword, setShowPassword] = useState(false);
 

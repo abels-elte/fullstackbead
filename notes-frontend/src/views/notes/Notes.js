@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import { Logo, SmallLogo } from '../../components/logo/Logo';
 import { Folder } from '../../components/folder/Folder';
@@ -10,29 +10,11 @@ import { EditableNote } from '../../components/editablenote/EditableNote';
 import { useNavigate } from 'react-router-dom';
 import { User } from '../../components/user/User';
 
-async function fetchtest() {
-    const response = await fetch("http://localhost:8080/auth/sign-in", {
-        method: "POST", 
-        mode: "cors", 
-        cache: "no-cache",
-        credentials: "same-origin", 
-        headers: {
-        "Content-Type": "application/json",
-        },
-        redirect: "follow",
-        referrerPolicy: "no-referrer", 
-        body: JSON.stringify({
-            "username": "test",
-            "password": "test"
-        }), 
-    });
-  console.log(response);
-  return response.json(); 
-}
-
 export function Notes() {
   const navigate = useNavigate();
   const [foldersArr, setFoldersArr] = useState([]);
+
+  const ghostFileRef = useRef(null);
   
   const auth = localStorage.getItem("notes-auth");
   const expiry = localStorage.getItem("notes-auth-expiry");
@@ -65,6 +47,23 @@ export function Notes() {
             "name": name
         }),
     });
+    fetchNotes();
+  };
+
+  const importNotes = async () => {
+    const file = ghostFileRef.current.files[0];
+    console.log(file);
+    if (!file) return;
+    const formdata = new FormData();
+    formdata.append("file", file);
+    const res = await fetch("http://localhost:8080/import", {
+        method: "POST", 
+        headers: {
+        "Authorization": "Bearer " + auth,
+        },
+        body: formdata
+    });
+    console.log(res);
     fetchNotes();
   };
 
@@ -104,11 +103,11 @@ export function Notes() {
                 <div className="new-buttons">
                     <Button icon="fa-solid fa-plus" text="new note"/>
                     <Button icon="fa-solid fa-folder-plus" text="new folder" onClick={newFolder}/>
-                    <Button icon="fa-solid fa-upload" text="import" />
+                    <Button icon="fa-solid fa-upload" text="import" onClick={() => ghostFileRef.current.click()}/>
                     <Button icon= "fa-solid fa-download" text="export" onClick={exportNotes}/> 
                 </div>
             </div>
-            {foldersArr.map(folder => <Folder default={folder.default} name={folder.name} key={folder.id} notes={folder.notes}/>)}
+            {foldersArr.map(folder => <Folder default={folder.default} name={folder.name} id={folder.id} key={folder.id} notes={folder.notes}/>)}
         </div>
         <div className="edit-area">
             <div className="toolbar">
@@ -118,6 +117,7 @@ export function Notes() {
             </div>  
             <EditableNote content="mockdesc"/>
         </div>
+        <input type="file" accept="application/zip" ref={ghostFileRef} style={{display: "none"}} onChange={importNotes}/>
     </div>
   );
 }

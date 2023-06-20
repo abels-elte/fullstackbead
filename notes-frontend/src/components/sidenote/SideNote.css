@@ -14,9 +14,20 @@
     font-size: 1em;
 }
 
+.sidenote-title button {
+    transform: scale(70%);
+    padding-left: 10px;
+    padding-right: 10px;
+    background-color: #CC6666;
+}
+
+.sidenote-title button:hover {
+    background-color: #994c4c;
+}
 
 .sidenote-content {
     font-weight: 300;
     font-size: 1rem;
     opacity: 60%;
+    margin-left: 30px;
 }

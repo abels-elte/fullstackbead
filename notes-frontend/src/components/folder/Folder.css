@@ -8,8 +8,24 @@
     user-select: none;
 }
 
-.folder-name {
+.folder-name, .folder-default {
     text-align: left;
     font-size: 1.4rem;
     margin-bottom: 5px;
+}
+
+.folder-name {
+    display: grid;
+    grid-template-columns: auto 40px;
+}
+
+.folder-name button {
+    transform: scale(70%);
+    padding-left: 10px;
+    padding-right: 10px;
+    background-color: #CC6666;
+}
+
+.folder-name button:hover {
+    background-color: #994c4c;
 }
