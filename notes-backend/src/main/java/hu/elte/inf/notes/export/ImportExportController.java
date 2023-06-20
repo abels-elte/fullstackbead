@@ -22,6 +22,7 @@ public class ImportExportController {
     public void zipFiles(HttpServletResponse response) {
         response.setStatus(HttpServletResponse.SC_OK);
         response.addHeader("Content-Disposition", "attachment; filename=\"export.zip\"");
+        response.addHeader("Content-Type", "application/zip");
         try {
             importExportService.export(response.getOutputStream());
         } catch (IOException e) {
