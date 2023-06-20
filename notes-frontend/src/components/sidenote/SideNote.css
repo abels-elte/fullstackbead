@@ -1,0 +1,16 @@
+.sidenote {
+    padding-left: 2rem;
+    margin-bottom: 5px;
+    cursor: pointer;
+}
+
+.sidenote-title {
+    font-weight: 500;
+    font-size: 1em;
+}
+
+.sidenote-content {
+    font-weight: 300;
+    font-size: 1rem;
+    opacity: 60%;
+}

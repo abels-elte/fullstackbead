@@ -1,0 +1,20 @@
+.notes {
+    display: grid;
+    grid-template-columns: 20vw auto;
+}
+
+.sidebar {
+    height: 100vh;
+    overflow-y: scroll;
+    border-right: 2px solid #38a537;
+}
+
+.new-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin: 10px;
+}
+
+.new-buttons button {
+    margin: 5px;
+}

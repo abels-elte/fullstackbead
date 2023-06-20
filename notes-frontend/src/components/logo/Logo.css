@@ -15,6 +15,11 @@
     color: #38a537;
 }
 
+.logo-small {
+    font-size: 2rem;
+    text-align: center;
+}
+
 @media (prefers-color-scheme: dark) {
     .logo {
         color: white;

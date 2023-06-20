@@ -8,3 +8,11 @@ export function Logo() {
         </div>
     );
 }
+
+export function SmallLogo() {
+    return (
+        <div className="logo logo-small">
+             <i className="fa-solid fa-toilet-paper"></i> Notes
+        </div>
+    );
+}

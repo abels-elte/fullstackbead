@@ -1,0 +1,14 @@
+.folder {
+    margin-left: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    text-align: left;
+    cursor: pointer;
+}
+
+.folder-name {
+    text-align: left;
+    font-size: 1.4rem;
+    margin-bottom: 5px;
+}
