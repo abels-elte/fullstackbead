@@ -3,6 +3,12 @@
     grid-template-columns: min(30vw, 360px) auto;
 }
 
+.empty {
+    display: grid;
+    align-content: center;
+    justify-items: center;
+}
+
 .sidebar {
     height: 100vh;
     overflow-y: scroll;

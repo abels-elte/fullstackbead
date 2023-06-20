@@ -34,7 +34,7 @@ export function Folder(props) {
     return (
         <div className="folder">
             {props.default ? <div className="folder-default"><i className="fa-solid fa-toilet-paper"></i> Notes </div> : <div className="folder-name" onClick={toggleOpen}> <div>{isOpen ? <i className="fa-solid fa-folder-open"></i> : <i className="fa-solid fa-folder"></i>} {props.name}</div> <Button text="X" onClick={deleteMe}/></div>}
-            {(isOpen || props.default) && notesArr.map(note => <SideNote default={props.default} key={note.id} note={note}/>)}
+            {(isOpen || props.default) && notesArr.map(note => <SideNote default={props.default} key={note.id} note={note} onClick={() => navigate("/notes/" + props.id + "/" + note.id)}/>)}
         </div>
     );
 }

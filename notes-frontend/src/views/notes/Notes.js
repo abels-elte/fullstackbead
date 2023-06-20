@@ -7,11 +7,14 @@ import { Button } from '../../components/button/Button';
 import './Notes.css';
 import { EditableName } from '../../components/editablename/EditableName';
 import { EditableNote } from '../../components/editablenote/EditableNote';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { User } from '../../components/user/User';
+import { Editor } from '../../components/editor/Editor';
 
 export function Notes() {
   const navigate = useNavigate();
+  const params = useParams();
+  
   const [foldersArr, setFoldersArr] = useState([]);
 
   const ghostFileRef = useRef(null);
@@ -109,14 +112,7 @@ export function Notes() {
             </div>
             {foldersArr.map(folder => <Folder default={folder.default} name={folder.name} id={folder.id} key={folder.id} notes={folder.notes}/>)}
         </div>
-        <div className="edit-area">
-            <div className="toolbar">
-                <EditableName name="mocktitle"/>
-                <Button icon="fa-solid fa-save" text="save note"/>
-                <Button icon="fa-solid fa-folder" text="choose folder"/>
-            </div>  
-            <EditableNote content="mockdesc"/>
-        </div>
+        {params.noteid ? <Editor/> : <div className="empty"><p>Open a note to edit.</p></div>}
         <input type="file" accept="application/zip" ref={ghostFileRef} style={{display: "none"}} onChange={importNotes}/>
     </div>
   );

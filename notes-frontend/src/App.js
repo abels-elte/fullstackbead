@@ -14,6 +14,7 @@ function App() {
         <Route path="/login" element={<Login/>}/>
         <Route path="/create" element={<Create/>}/>
         <Route path="/notes" element={<Notes/>}/>
+        <Route exact path="/notes/:folderid/:noteid" element={<Notes/>}/>
       </Routes>
     </BrowserRouter>
   );
