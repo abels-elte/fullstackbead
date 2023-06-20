@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import './SideNote.css';
 import { Button } from '../button/Button';
@@ -24,7 +24,7 @@ export function SideNote(props) {
     return (
         <div className={props.default ? "sidenote sidenote-default" : "sidenote"} onClick={props.onClick}>
             <div className="sidenote-title"> <Button text="X" onClick={deleteMe}/> {<i className="fa-solid fa-file-alt"></i>} {props.note.title}</div>
-            <div className="sidenote-content">{props.note.content.substring(0, 20)}{props.note.content.length > 20 ? "…" : ""}</div>
+            <div className="sidenote-content">{props.note.content?.substring(0, 20)}{props.note.content?.length > 20 ? "…" : ""}</div>
         </div>
     );
 }

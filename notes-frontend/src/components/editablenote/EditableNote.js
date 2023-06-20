@@ -4,7 +4,7 @@ import './EditableNote.css';
 
 export function EditableNote(props) {
     return (
-        <textarea className="editable-note" defaultValue={props.content} onChange={(props.onChange)}>
+        <textarea className="editable-note" value={props.content} onChange={props.onChange}>
         </textarea>
     );
 }

@@ -30,6 +30,6 @@ API endpoint-ok:
     - POST /folders/{id}, egy mappa id es a request body a {name} mezoket varja, ezek alapjan frissiti az adatbazisban az adott id-val rendelkezo mappa-t.
     - DELETE /folders/{id}, egy mappa id-t var es torli az adatbazisbol
 - /export
-    - GET metodus: vissza adja a felhasznalo jegyzeteit egy export.zip fileban.
+    - GET metodus: vissza adja a felhasznalo jegyzeteit egy zip fileban.
 - /import
     - POST metodus: egy file-t fogad a formdata "file" mezojeben. A zip file-ban talalhato txt fileokat importalja a felhasznalo jegyzetei koze. 
