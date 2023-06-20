@@ -5,6 +5,7 @@
     justify-content: left;
     text-align: left;
     cursor: pointer;
+    user-select: none;
 }
 
 .folder-name {

@@ -18,3 +18,35 @@
 .new-buttons button {
     margin: 5px;
 }
+
+.edit-area {
+    display: grid;
+    grid-template-rows: 6vh auto;
+}
+
+.toolbar {
+    display: grid;
+    grid-template-columns: auto 120px 160px;
+    margin: 5px 10px 10px 10px;
+}
+
+.toolbar * {
+    margin: 5px;
+}
+
+.toolbar .button {
+    flex-direction: row-reverse;
+}
+
+.sticky {
+    position: sticky;
+    top: 0;
+    background-color: white;
+    z-index: 9999;
+}
+
+@media (prefers-color-scheme: dark) {
+    .sticky {
+      background-color: #21222c;
+    }
+  }

@@ -6,23 +6,7 @@ import { Button } from '../button/Button';
 
 export function Folder(props) {
 
-    const notesArr = [ 
-        {
-            "id": "1",
-            "title": "mocktitle",
-            "content": "mockdesc"
-        },
-        {
-            "id": "2",
-            "title": "mock title 2",
-            "content": "mock desc 2 words"
-        },
-        {
-            "id": "3",
-            "title": "longer mock title or something",
-            "content": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-        }
-    ];
+    const notesArr = props.notes;
 
     const [isOpen, setOpen] = useState(false);
 
@@ -32,8 +16,8 @@ export function Folder(props) {
 
     return (
         <div className="folder">
-            <div className="folder-name" onClick={toggleOpen}>{isOpen ? <i className="fa-solid fa-folder-open"></i> : <i className="fa-solid fa-folder"></i>} {props.name} </div>
-            {isOpen && notesArr.map(note => <SideNote key={note.id} note={note}/>)}
+            {props.default ? <div className="folder-name"><i className="fa-solid fa-toilet-paper"></i> Notes</div> : <div className="folder-name" onClick={toggleOpen}>{isOpen ? <i className="fa-solid fa-folder-open"></i> : <i className="fa-solid fa-folder"></i>} {props.name} </div>}
+            {isOpen || props.default && notesArr.map(note => <SideNote default={props.default} key={note.id} note={note}/>)}
         </div>
     );
 }

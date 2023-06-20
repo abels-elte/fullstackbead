@@ -4,8 +4,6 @@ import './EditableName.css';
 
 export function EditableName(props) {
     return (
-        <div className="editable-name" contentEditable="true">
-            {props.name}
-        </div>
+        <input className="editable-name" type="text" defaultValue={props.name}/>
     );
 }

@@ -1,0 +1,16 @@
+.user {
+    display: grid;
+    padding: 20px;
+    justify-items: center;
+}
+
+.user div {
+    text-align: center;
+    font-size: 1.2em;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.user button {
+    max-width: 100px;
+}

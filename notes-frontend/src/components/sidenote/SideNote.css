@@ -2,12 +2,18 @@
     padding-left: 2rem;
     margin-bottom: 5px;
     cursor: pointer;
+    user-select: none;
+}
+
+.sidenote-default {
+    padding-left: 0;
 }
 
 .sidenote-title {
     font-weight: 500;
     font-size: 1em;
 }
+
 
 .sidenote-content {
     font-weight: 300;
