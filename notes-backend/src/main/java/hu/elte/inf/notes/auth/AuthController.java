@@ -55,6 +55,7 @@ public class AuthController {
             return ResponseEntity.ok()
                     .header(HttpHeaders.AUTHORIZATION, token)
                     .header(HttpHeaders.EXPIRES, now.plusSeconds(expiry).toString())
+                    .header(HttpHeaders.ACCESS_CONTROL_EXPOSE_HEADERS, "*", "Authorization")
                     .body(user.toUserInfo());
         } catch (BadCredentialsException ex) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
