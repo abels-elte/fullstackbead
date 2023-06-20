@@ -53,6 +53,22 @@ export function Notes() {
     fetchNotes();
   };
 
+  const newNote = async () => {
+    const res = await fetch("http://localhost:8080/notes", {
+        method: "POST", 
+        headers: {
+        "Authorization": "Bearer " + auth,
+        "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            "title": "New Note",
+            "content": ""
+        }),
+    });
+    const json = await res.json();
+    navigate("/notes/" + json.parentId + "/" + json.id);
+  };
+
   const importNotes = async () => {
     const file = ghostFileRef.current.files[0];
     console.log(file);
@@ -104,7 +120,7 @@ export function Notes() {
                 <SmallLogo/>
                 <User/>
                 <div className="new-buttons">
-                    <Button icon="fa-solid fa-plus" text="new note"/>
+                    <Button icon="fa-solid fa-plus" text="new note" onClick={newNote}/>
                     <Button icon="fa-solid fa-folder-plus" text="new folder" onClick={newFolder}/>
                     <Button icon="fa-solid fa-upload" text="import" onClick={() => ghostFileRef.current.click()}/>
                     <Button icon= "fa-solid fa-download" text="export" onClick={exportNotes}/> 

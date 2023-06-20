@@ -53,12 +53,13 @@ export function Editor() {
             }), 
         });
         console.log(res);
+        navigate(0);
     };
     
     return (
         <div className="edit-area">
             <div className="toolbar">
-                <EditableName name={noteTitle} onChange={e => setNoteTitle(e.value)}/>
+                <EditableName name={noteTitle} onChange={e => setNoteTitle(e.target.value)}/>
                 <Button icon="fa-solid fa-save" text="save note" onClick={e => saveNote()}/>
                 <Button icon="fa-solid fa-folder" text="choose folder"/>
             </div>  
